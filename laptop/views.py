@@ -15,10 +15,11 @@ from display.models import Profile
 # Create your views here.
 def home(request):
     l = Laptop.objects.all()
+    l2 = Laptop.objects.all()
     c = Category.objects.all()
 
     return render(request, "index.html",
-                  {"l":l, "c": c})
+                  {"l":l, "l2":l2, "c": c})
 
 def search(request):
     if request.method == "POST":
