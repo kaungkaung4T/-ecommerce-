@@ -1,0 +1,56 @@
+{% extends "bootstrap.html" %}
+{% block content %}
+{% include "chain.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% load crispy_forms_tags %}
+{% include "header.html" %}
+
+
+<body>
+
+<br>
+
+<div class="content" style="max-width: 1100px;height:700px;">
+    <div style="float:right;">
+    <p class="text-muted">Note: You dont need to <br>add discount if you dont want.</p><br>
+        <img src="/static/user_sell.gif" alt="">
+</div>
+
+
+
+
+<div style="float:left;width:600px;">
+
+
+            <legend class="border-bottom mb-4 text-dark">Upload your products
+                <label class="text-muted" style="font-size:0.7em;">({{ l.title }})</label></legend>
+
+                    {% for mes in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{ mes }}!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+                {% endfor %}
+        <form action="{% url 'update' l.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+             <div class="mb-4" >
+                    <div class="col-sm-6">
+                        {{ u|crispy }}
+                    </div></div>
+
+            &nbsp; &nbsp;<button class="btn btn-primary text-white" type="submit">Update</button>
+            &nbsp;<label>Sell your products? <a class="link-primary" style="text-decoration:none;" href="/upload">Sell</a></label>
+        </form>
+            </div>
+</div>
+</body>
+
+
+{% include "footer.html" %}
+
+{% endblock %}

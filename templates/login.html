@@ -1,0 +1,42 @@
+{% extends "bootstrap.html" %}
+{% block content %}
+{% include "chain.html" %}
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<br><br>
+
+    <div class="card" style="margin: auto; text-align: left; width: 510px;">
+            <div class="card-body">
+                <p>New user?&nbsp;<a class="text-primary" href="registration" style="text-decoration: none;">Create an account</a></p>
+
+                {% for mes in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ mes }}!</strong> {{ login_error_mes }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+                {% endfor %}
+        <form action="login" method="POST">
+            {% csrf_token %}
+             <div class="mb-3" >
+            <label class="col-sm-4 col-form-label">Username</label>
+                    <div class="col-sm-12">
+                        <input class="form-control" type="text" name="username" required></div></div>
+
+            <div class="mb-3">
+            <label class="col-sm-4 col-form-label">Password</label>
+                <div class="col-sm-12">
+                    <input class="form-control" type="password" name="password" required></div></div>
+
+            <div style="text-align: right;">
+            <button class="btn btn-success" type="submit">Sign in</button>&nbsp; &nbsp;</div>
+        </form>
+            </div>
+            </div>
+
+
+{% endblock %}

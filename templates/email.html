@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+Hello! {{ user.username }},
+
+Thank your for using our site, Please verify your account to click a link below.
+
+http://{{ domain }}{% url 'accept' user_id token %}
+
+{% endautoescape %}

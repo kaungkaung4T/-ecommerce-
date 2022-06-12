@@ -1,0 +1,170 @@
+{% extends "bootstrap.html" %}
+{% block content %}
+{% include "chain.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<div class="imge">
+
+    <div style="position:relative;left:390px;top:100px;width:310px;">
+        <h1 class="text-light" style="font-size:60px;font-family:Lucida Console;width:300px;" ><b>WHAT'S NEW!</b></h1>
+        <a class="btn text-light" href="#reach_product" style="font-size:30px;font-family:Lucida Console;background-color:#146EB4;">BUY PRODUCTS</a>
+</div>
+
+</div>
+
+{% include "header.html" %}
+
+<br>
+<body>
+
+<div class="content" style="max-width: 1100px;">
+
+<!--    <img class="gif" src="static/ad.gif" alt="">-->
+<!--    <br><br>-->
+
+       <legend id="reach_product" class="border-bottom mb-5"><center><b>PRODUCTS TO BUY</b></center></legend>
+
+    <div class="row" style="max-width: 1100px;">
+    {% for laptop in l %}
+        <div class="col-md-3">
+<!--            <div class="col-lg-3 col-md-6 mb-4">-->
+
+    <div class="card" style="width: 14rem;font-size:0.9em;">
+  <img src="{{ laptop.image.url }}" class="card-img-top" style="height: 200px;object-fit: cover;">
+  <div class="card-body" style="height: 13.2rem;">
+    <h5 class="card-title" style="font-size:1.3em;">{{ laptop.title }}</h5>
+    <p class="card-text ">{{ laptop.description|truncatechars:42 }}
+        <a href="{% url 'view' laptop.id %}" style="text-decoration:none;" class="link-primary">view more</a></p>
+
+            {% if laptop.discount %}
+      <b class="card-text text-danger" style="font-size:1em;">${{ laptop.discount|floatformat:2 }} </b>&nbsp;
+      <b class="card-text" style="text-decoration:line-through;font-size:1em;">${{ laptop.price|floatformat:2 }} </b>&nbsp;
+      <b class="card-text" style="font-size:1em;">{{ laptop.discount_percent }}%</b>&nbsp;
+            {% else %}
+      <b class="card-text text-danger" style="font-size:1em;">${{ laptop.price|floatformat:2 }} </b>
+                {% endif %}
+      <p class="card-text"><small class="text-muted">{{ laptop.time }}</small></p>
+  </div>
+      <div class="card-footer bg-transparent">
+          <center>
+
+              {% if user.is_authenticated %}
+           {% if laptop.user == request.user %}
+      <a href="{% url 'view' laptop.id %}" style="text-decoration:none;">Edit product</a>
+              {% endif %}
+                    {% endif %}
+
+
+      {% if laptop.user != request.user %}
+            {% if user.is_authenticated %}
+          <form id="form" action="{% url 'order' laptop.id %}">
+            {% csrf_token %}
+          <a href="{% url 'buy' laptop.id %}" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+          <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+      </form>
+                {% else %}
+            <form action="{% url 'order' laptop.id %}" method="POST">
+            {% csrf_token %}
+          <a href="orderlist" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+          <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+      </form>
+                {% endif %}
+      {% endif %}</center>
+          </div>
+</div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div style="height:67px;"></div>
+
+    <legend class="border-bottom mb-5"><center><b>CATEGORY</b></center></legend>
+     <div class="row" style="max-width: 1100px;">
+
+            {% for category in c %}
+                <div class="card" style="width: 183px;border-radius: 0;">
+                    <a href="{% url 'category' category.name %}" style="text-decoration:none;">
+  <img src="{{ category.image.url }}" class="card-img-top" style="height: 100px;object-fit: cover;">
+  <div class="card-body" style="height: 60px;">
+    <p class="card-title" style="text-align: center;">{{ category.name }}</p>
+  </div>
+                                </a>
+</div>
+                {% endfor %}
+     </div>
+
+
+    <div id="reach" style="height:67px;"></div>
+<!--    <div style="height:404px;">-->
+<!--        <img id="reach" class="gif" src="static/ad.gif" alt="" style="height:380px;">-->
+<!--    </div>-->
+
+    <legend class="border-bottom mb-5"><center><b>TODAY'S DEALS</b></center></legend>
+            <div class="row" style="max-width: 1100px;">
+    {% for laptop in l %}
+                        {% if laptop.discount %}
+        <div class="col-md-3" >
+        <div class="card" style="width: 14rem;font-size:0.9em;">
+                <img src="{{ laptop.image.url }}" class="card-img-top" style="height: 200px;object-fit: cover;">
+        <div class="card-body" style="height: 13.2rem;">
+            <h5 class="card-title" style="font-size:1.3em;">{{ laptop.title }}</h5>
+    <p class="card-text ">{{ laptop.description|truncatechars:42 }}
+        <a href="{% url 'view' laptop.id %}" style="text-decoration:none;" class="link-primary">view more</a></p>
+
+            {% if laptop.discount %}
+      <b class="card-text text-danger" style="font-size:1em;">${{ laptop.discount|floatformat:2 }} </b>&nbsp;
+      <b class="card-text" style="text-decoration: line-through;font-size:1em;">${{ laptop.price|floatformat:2 }} </b>&nbsp;
+      <b class="card-text" style="font-size:1em;">{{ laptop.discount_percent }}%</b>&nbsp;
+            {% else %}
+      <b class="card-text text-danger" style="font-size:1em;">${{ laptop.price|floatformat:2 }} </b>
+                {% endif %}
+      <p class="card-text"><small class="text-muted">{{ laptop.time }}</small></p>
+        </div>
+            <div class="card-footer bg-transparent">
+          <center>
+
+              {% if user.is_authenticated %}
+           {% if laptop.user == request.user %}
+      <a href="{% url 'view' laptop.id %}" style="text-decoration:none;">Edit product</a>
+              {% endif %}
+                    {% endif %}
+
+
+      {% if laptop.user != request.user %}
+            {% if user.is_authenticated %}
+          <form id="form" action="{% url 'order' laptop.id %}">
+            {% csrf_token %}
+          <a href="{% url 'buy' laptop.id %}" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+          <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+      </form>
+                {% else %}
+            <form action="{% url 'order' laptop.id %}" method="POST">
+            {% csrf_token %}
+          <a href="orderlist" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+          <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+      </form>
+                {% endif %}
+      {% endif %}
+          </center>
+  </div>
+
+</div><br>
+        </div>
+                {% endif %}
+        {% endfor %}
+            </div>
+</div>
+<br><br>
+</body>
+<div style="height:67px;"></div>
+
+<script type="text/javascript" src="{% static 'order.js' %}">
+
+                </script>
+
+{% include "footer.html" %}
+
+{% endblock %}

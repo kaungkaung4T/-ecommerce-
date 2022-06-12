@@ -1,0 +1,98 @@
+{% extends "bootstrap.html" %}
+{% block content %}
+{% include "chain.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% include "header.html" %}
+
+<body>
+<br>
+
+
+<div class="content" style="max-width: 1100px;">
+    <legend class="border-bottom mb-5 text-dark">{{ laptop.title }}
+        <label class="text-muted" style="font-size:0.7em;">posted by {{ laptop.user }}</label>
+    </legend>
+
+
+                {% for mes in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>{{ mes }}!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div><br>
+                {% endfor %}
+                        <br>
+
+        <div STYLE="float:left;width:850px;">
+            <img class="no_user" src="{{ laptop.image.url }}" alt="" style="width:300px;height:250px;margin-right:22px;margin-bottom:22px;">
+            <p>{{ laptop.description }}</p>
+            <p class="text-muted">{{ laptop.time }}</p>
+                {% if laptop.discount %}
+            <b class="text-danger">${{ laptop.discount|floatformat:2 }}</b>&nbsp;
+            <b style="text-decoration:line-through;">${{ laptop.price|floatformat:2 }}</b>&nbsp;
+            <b class="">{{ laptop.discount_percent }}%</b>
+                {% else %}
+            <b class="text-danger">${{ laptop.price|floatformat:2 }}</b>
+                    {% endif %}
+        </div>
+
+
+  <div style="position:relative;float:right;bottom:22px;width:200px;height:310px;">
+
+                <div class="card" style="width:200px;height:310px;">
+                  <div class="card-body" style="font-size:0.8em;">
+                      <center>
+     <a class="bt border border-secondary col-md-4 p-2 rounded" target="_blank" href="https://stripe.com/docs/payments/payment-methods/overview" style="text-decoration:none;">
+                    See All Buying Options
+                      </a></center>
+                  </div>
+                    <div class="card-footer bg-transparent">
+                        {% if user.is_authenticated %}
+                                    {% if laptop.user != user %}
+                        <center>
+                            <form id="form" action="{% url 'order' laptop.id %}">
+                                {% csrf_token %}
+                        <a class="btn btn-success btn-sm" href="{% url 'buy' laptop.id %}">Buy</a>&nbsp;
+                           <button class="btn btn-outline-success btn-sm" type="submit">Add to cart</button>
+                        </form></center>
+                                        {% else %}
+                        <center>
+                            <form action="{% url 'delete' laptop.id %}" method="POST">
+                                {% csrf_token %}
+                        <a class="btn btn-success btn-sm" href="{% url 'update' laptop.id %}">Update</a>&nbsp;
+                        <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+                                    </form>
+                            </center>
+                                    {% endif %}
+                        {% else %}
+                        <center>
+                        <form action="{% url 'order' laptop.id %}" method="POST">
+                                {% csrf_token %}
+                              <a class="btn btn-outline-success btn-sm" href="/orderlist" >Buy</a>&nbsp;
+                              <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+                          </form>
+                        </center>
+                        {% endif %}
+                    </div>
+                </div>
+        </div>
+
+
+</div>
+
+<br><br>
+</body>
+
+<div class="helper"></div>
+
+<script type="text/javascript" src="{% static 'order.js' %}">
+
+                </script>
+
+{% include "footer.html" %}
+
+{% endblock %}

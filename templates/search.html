@@ -1,0 +1,91 @@
+{% extends "bootstrap.html" %}
+{% block content %}
+{% include "chain.html" %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+{% include "header.html" %}
+
+<body>
+<br>
+
+<div class="content" style="max-width: 1100px;">
+            {% if s %}
+    <h5>Showing results for: {{ s }}</h5>
+            {% else %}
+                    {% if se %}
+    <br>
+    <center>
+        <div class="card" style="width: 560px;background-color:#232F3E;">
+                    <div class="card-body">
+   <p class="card-text text-white">Your search {{ se }} {{ nothing }}</p>
+            </div>
+        </div>
+                </center>
+                {% else %}
+        <h5>Showing all listings</h5>
+    {% endif %}
+    {% endif %}
+    <br>
+
+<div class="row" style="max-width: 1100px;">
+        {% for laptops in laptop %}
+        <div class="col-md-3" >
+            <div class="card" style="width: 14rem;font-size:0.9em;">
+          <img src="{{ laptops.image.url }}" class="card-img-top" style="height: 200px;object-fit: cover;">
+          <div class="card-body" style="height: 13.2rem;">
+            <h5 class="card-title" style="font-size:1.3em;">{{ laptops.title }}</h5>
+            <p class="card-text">{{ laptops.description|truncatechars:42 }}
+                <a href="{% url 'view' laptops.id %}" style="text-decoration:none;" class="link-primary">view more</a></p>
+                {% if laptops.discount %}
+              <b class="card-text text-danger" style="font-size:1em;">${{ laptops.discount|floatformat:2 }} </b>&nbsp;
+              <b class="card-text" style="text-decoration: line-through;font-size:1em;">${{ laptops.price|floatformat:2 }} </b>&nbsp;
+              <b class="card-text" style="font-size:1em;">{{ laptops.discount_percent }}%</b>&nbsp;
+                    {% else %}
+              <b class="card-text text-danger" style="font-size:1em;">${{ laptops.price|floatformat:2 }} </b>
+                    {% endif %}
+              <p class="card-text"><small class="text-muted">{{ laptops.time }}</small></p>
+          </div>
+              <div class="card-footer bg-transparent">
+          <center>
+
+                {% if user.is_authenticated %}
+           {% if laptops.user == request.user %}
+      <a href="{% url 'view' laptops.id %}" style="text-decoration:none;">Edit product</a>
+              {% endif %}
+                    {% endif %}
+
+                {% if laptops.user != request.user %}
+                {% if user.is_authenticated %}
+              <form id="form" action="{% url 'order' laptops.id %}">
+                {% csrf_token %}
+              <a href="{% url 'buy' laptops.id %}" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+              <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+          </form>
+                    {% else %}
+                <form action="{% url 'order' laptops.id %}" method="POST">
+                {% csrf_token %}
+              <a href="orderlist" class="btn btn-outline-success btn-sm">Buy</a>&nbsp;
+              <button class="btn btn-success btn-sm" type="submit">Add to cart</button>
+          </form>
+
+                    {% endif %}
+          {% endif %}
+          </center>
+              </div>
+
+        </div><br>
+                </div>
+                {% endfor %}
+        </div>
+            </div>
+
+</body>
+<div class="helper"></div>
+                <script type="text/javascript" src="{% static 'order.js' %}">
+
+                </script>
+{% include "footer.html" %}
+
+{% endblock %}
