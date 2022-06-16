@@ -28,9 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','ecommerce.herokuapp.com']
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -53,7 +55,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "corsheaders.middleware.CorsMiddleware",
 
     'django.contrib.sessions.middleware.SessionMiddleware',
