@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 # DEBUG = True
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','ecommerce.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','kaungkaungecommerce.herokuapp.com']
 # ALLOWED_HOSTS = []
 
 
