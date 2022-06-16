@@ -167,20 +167,3 @@ EMAIL_HOST_USER = env('email_user')
 EMAIL_HOST_PASSWORD = env('email_pass')
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
