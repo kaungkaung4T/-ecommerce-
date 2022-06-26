@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'laptop.apps.LaptopConfig',
     'crispy_forms',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'storages'
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -167,5 +168,15 @@ EMAIL_USE_TLS = env('email_user_tls')
 EMAIL_PORT = env('email_port')
 EMAIL_HOST_USER = env('email_user')
 EMAIL_HOST_PASSWORD = env('email_pass')
+
+
+AWS_ACCESS_KEY_ID = env('aws_access_key_id')
+AWS_SECRET_ACCESS_KEY = env('aws_secret_access_key')
+AWS_STORAGE_BUCKET_NAME = 'kaungkaung'
+
+# AWS_S3_FILE_OVERWRITE = ''
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 CORS_ALLOW_ALL_ORIGINS = True
