@@ -16,16 +16,22 @@ class Laptop(models.Model):
     def __str__(self):
         return f"{self.user.username}"
 
-    def save(self, *args, **kwargs):
-        super().save()
+    #  here ================================================
+    # def save(self, *args, **kwargs):
+    #     super().save()
 
         img = Image.open(self.image.path)
         # img = img.resize((300, 300))
         # img.thumbnail((300,300), Image.ANTIALIAS)
-        if img.height > 300 or img.width > 300:
-            over = (300, 300)
-            img.thumbnail(over)
-            img.save(self.image.path, quality=95)
+
+        # AWS cant use idk why
+        #  here ================================================
+        # if img.height > 300 or img.width > 300:
+        #     over = (300, 300)
+        #     img.thumbnail(over)
+        #     img.save(self.image.path, quality=95)
+
+
         # else:
         #     img.save(self.image.path, quality=95)
 
