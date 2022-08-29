@@ -34,6 +34,7 @@ a{
 
 body{
     background-color: #f8f9fa;
+    min-width: 1070px;
 }
 
 html {

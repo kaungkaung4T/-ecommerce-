@@ -26,12 +26,12 @@
 
        <legend id="reach_product" class="border-bottom mb-5"><center><b>PRODUCTS TO BUY</b></center></legend>
 
-    <div class="row" style="max-width: 1100px;">
+    <div class="row" style="">
     {% for laptop in l %}
-        <div class="col-md-3">
+<!--        <div class="col-md-3">-->
 <!--            <div class="col-lg-3 col-md-6 mb-4">-->
 
-    <div class="card" style="width: 14rem;font-size:0.9em;">
+    <div class="card" style="width: 14rem;font-size:0.9em;margin-top:50px;margin-right:40px;">
   <img src="{{ laptop.image.url }}" class="card-img-top" style="height: 200px;object-fit: cover;">
   <div class="card-body" style="height: 13.2rem;">
     <h5 class="card-title" style="font-size:1.3em;">{{ laptop.title }}</h5>
@@ -74,7 +74,8 @@
       {% endif %}</center>
           </div>
 </div>
-        </div>
+<!--        colum divs xD -->
+<!--        </div>-->
         {% endfor %}
     </div>
 
@@ -103,11 +104,11 @@
 <!--    </div>-->
 
     <legend class="border-bottom mb-5"><center><b>TODAY'S DEALS</b></center></legend>
-            <div class="row" style="max-width: 1100px;">
+            <div class="row" style="">
     {% for laptop in l2 %}
                         {% if laptop.discount %}
-        <div class="col-md-3" >
-        <div class="card" style="width: 14rem;font-size:0.9em;">
+<!--        <div class="col-md-3" >-->
+        <div class="card" style="width: 14rem;font-size:0.9em;margin-top:50px;margin-right:40px;">
                 <img src="{{ laptop.image.url }}" class="card-img-top" style="height: 200px;object-fit: cover;">
         <div class="card-body" style="height: 13.2rem;">
             <h5 class="card-title" style="font-size:1.3em;">{{ laptop.title }}</h5>
@@ -152,7 +153,8 @@
   </div>
 
 </div><br>
-        </div>
+                <!--column div xD -->
+<!--        </div>-->
                 {% endif %}
         {% endfor %}
             </div>
