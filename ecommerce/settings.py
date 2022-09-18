@@ -91,22 +91,22 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecommerce',
-        'USER': 'root',
-        'PASSWORD': '1233',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'ecommerce',
+#         'USER': 'root',
+#         'PASSWORD': '1233',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
@@ -169,14 +169,19 @@ EMAIL_PORT = env('email_port')
 EMAIL_HOST_USER = env('email_user')
 EMAIL_HOST_PASSWORD = env('email_pass')
 
-
-AWS_ACCESS_KEY_ID = env('aws_access_key_id')
-AWS_SECRET_ACCESS_KEY = env('aws_secret_access_key')
-AWS_STORAGE_BUCKET_NAME = 'kaungkaung'
+# ====================================
+# AWS_ACCESS_KEY_ID = env('aws_access_key_id')
+# AWS_SECRET_ACCESS_KEY = env('aws_secret_access_key')
+# AWS_STORAGE_BUCKET_NAME = 'kaungkaung'
+# ====================================
 
 # AWS_S3_FILE_OVERWRITE = ''
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# ====================================
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# ====================================
+
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 CORS_ALLOW_ALL_ORIGINS = True
